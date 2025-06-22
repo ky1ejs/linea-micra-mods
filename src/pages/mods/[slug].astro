@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import Analytics from '../../components/Analytics.astro';
 import '../../styles/global.css';
 
 export async function getStaticPaths() {
@@ -187,10 +188,6 @@ function renderMarkdown(content: string) {
         }
       });
     </script>
-
-    <script type="module">
-      import { inject } from '@vercel/analytics';
-      inject();
-    </script>
+    <Analytics />
   </body>
 </html>

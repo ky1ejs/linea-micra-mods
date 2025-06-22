@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import Analytics from '../components/Analytics.astro';
 import '../styles/global.css';
 
 const mods = await getCollection('mods');
@@ -188,10 +189,6 @@ const typeStats = mods.reduce((acc, mod) => {
 				});
 			});
 		</script>
-
-		<script type="module">
-			import { inject } from '@vercel/analytics';
-			inject();
-		</script>
+		<Analytics />
 	</body>
 </html>

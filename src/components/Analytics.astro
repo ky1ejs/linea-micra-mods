@@ -1,0 +1,13 @@
+---
+// Vercel Analytics component for Astro
+---
+
+<script>
+  // Import and inject Vercel Analytics
+  (async () => {
+    if (typeof window !== 'undefined') {
+      const { inject } = await import('@vercel/analytics');
+      inject();
+    }
+  })();
+</script>
