@@ -1,47 +1,77 @@
-# Astro Starter Kit: Minimal
+# Linea Micra Mods
 
-```sh
-pnpm create astro@latest -- --template minimal
+A static website showcasing modifications for the La Marzocco Linea Micra espresso machine. Built with Astro and Tailwind CSS.
+
+## Features
+
+- **Interactive Mod Browser**: Filterable table showing all available modifications
+- **Detailed Mod Pages**: Individual pages for each modification with full descriptions
+- **Type Filtering**: Filter mods by type (shot-timer, brew-by-weight, flow-control, scale-drip-tray)
+- **Responsive Design**: Clean, modern design that works on all devices
+- **Fast Performance**: Static site generation for optimal loading speeds
+
+## Development
+
+### Setup
+
+```bash
+pnpm install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+### Development Server
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+pnpm dev
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Build
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+pnpm build
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Data Processing
 
-## 🧞 Commands
+The site automatically processes markdown files from your Obsidian vault. To refresh the mod data:
 
-All commands are run from the root of the project, from a terminal:
+```bash
+node scripts/parse-mods.js
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+## Project Structure
 
-## 👀 Want to learn more?
+- `src/pages/index.astro` - Homepage with mod table and filtering
+- `src/pages/mods/[slug].astro` - Dynamic mod detail pages
+- `src/content/mods/` - Processed mod data as JSON files
+- `scripts/parse-mods.js` - Script to parse Obsidian markdown files
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Mod Types
+
+- **Shot Timers**: Precision timing systems for consistent espresso extraction
+- **Brew-by-Weight**: Scale integration for automatic shot stopping by weight
+- **Flow Control**: Manual water flow control for advanced brewing techniques
+- **Scale Drip Trays**: Custom trays to accommodate precision scales
+
+## Contributing
+
+To add new mods, add markdown files to your Obsidian vault with proper frontmatter:
+
+```yaml
+---
+creator: Mod Creator Name
+type:
+  - shot-timer
+  - brew-by-weight
+url: https://example.com/mod-link
+---
+```
+
+Then run the parsing script to update the website data.
+
+## Statistics
+
+Currently showcasing **17 modifications** across **4 categories**:
+- 9 Shot Timer mods
+- 5 Brew-by-Weight mods  
+- 4 Scale Drip Tray mods
+- 1 Flow Control mod
