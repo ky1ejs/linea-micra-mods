@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import Analytics from '../../components/Analytics.astro';
 import '../../styles/global.css';
 
 export async function getStaticPaths() {
@@ -188,6 +187,5 @@ function renderMarkdown(content: string) {
         }
       });
     </script>
-    <Analytics />
   </body>
 </html>

@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import Analytics from '../components/Analytics.astro';
 import '../styles/global.css';
 
 const mods = await getCollection('mods');
@@ -189,6 +188,5 @@ const typeStats = mods.reduce((acc, mod) => {
 				});
 			});
 		</script>
-		<Analytics />
 	</body>
 </html>
