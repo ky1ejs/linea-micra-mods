@@ -1,9 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
-import '../../styles/global.css';
+import { getCollection } from "astro:content";
+import "../../styles/global.css";
+import Navigation from "../../components/Navigation.astro";
+import Footer from "../../components/Footer.astro";
+import ImageModal from "../../components/ImageModal.astro";
 
 export async function getStaticPaths() {
-  const mods = await getCollection('mods');
+  const mods = await getCollection("mods");
   return mods.map((mod) => ({
     params: { slug: mod.data.slug },
     props: { mod },
@@ -14,18 +17,32 @@ const { mod } = Astro.props;
 
 // Function to render markdown content as HTML (enhanced implementation)
 function renderMarkdown(content: string) {
-  return content
-    // Process images FIRST (before links to avoid conflicts)
-    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<div class="image-container my-6"><img src="$2" alt="$1" class="w-full h-auto rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer" onclick="openImageModal(this)" loading="lazy" /></div>')
-    // Then process other formatting
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700 underline">$1</a>')
-    .replace(/# ([^\n]+)/g, '<h1 class="text-2xl font-bold text-gray-900 mt-8 mb-4">$1</h1>')
-    .replace(/## ([^\n]+)/g, '<h2 class="text-xl font-semibold text-gray-900 mt-6 mb-3">$1</h2>')
-    .replace(/\n\n/g, '</p><p class="mb-4">')
-    .replace(/^/, '<p class="mb-4">')
-    .replace(/$/, '</p>');
+  return (
+    content
+      // Process images FIRST (before links to avoid conflicts)
+      .replace(
+        /!\[([^\]]*)\]\(([^)]+)\)/g,
+        '<div class="image-container my-6"><img src="$2" alt="$1" class="w-full h-auto rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer" onclick="openImageModal(this)" loading="lazy" /></div>',
+      )
+      // Then process other formatting
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.*?)\*/g, "<em>$1</em>")
+      .replace(
+        /\[([^\]]+)\]\(([^)]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700 underline">$1</a>',
+      )
+      .replace(
+        /# ([^\n]+)/g,
+        '<h1 class="text-2xl font-bold text-gray-900 mt-8 mb-4">$1</h1>',
+      )
+      .replace(
+        /## ([^\n]+)/g,
+        '<h2 class="text-xl font-semibold text-gray-900 mt-6 mb-3">$1</h2>',
+      )
+      .replace(/\n\n/g, '</p><p class="mb-4">')
+      .replace(/^/, '<p class="mb-4">')
+      .replace(/$/, "</p>")
+  );
 }
 ---
 
@@ -36,156 +53,129 @@ function renderMarkdown(content: string) {
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{mod.data.title} - Linea Micra Mods</title>
-    <meta name="description" content={`${mod.data.title} mod by ${mod.data.creator} for La Marzocco Linea Micra`} />
+    <meta
+      name="description"
+      content={`${mod.data.title} mod by ${mod.data.creator} for La Marzocco Linea Micra`}
+    />
   </head>
   <body class="min-h-screen bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm border-b border-gray-200">
-      <div class="max-w-6xl mx-auto px-6 py-4">
-        <div class="flex items-center justify-between">
-          <a href="/" class="text-xl font-bold text-gray-900 hover:text-amber-600 transition-colors">
-            Linea Micra Mods
-          </a>
-          <a href="/#mods-table" class="text-gray-600 hover:text-gray-900 transition-colors">
-            ← Back to Mods
-          </a>
-        </div>
-      </div>
-    </nav>
+    <Navigation showBackButton={true} />
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-6 py-12">
       <!-- Header -->
       <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
         <div class="mb-6">
-          <h1 class="text-4xl font-bold text-gray-900 mb-4">{mod.data.title}</h1>
+          <h1 class="text-4xl font-bold text-gray-900 mb-4">
+            {mod.data.title}
+          </h1>
           <div class="flex flex-wrap items-center gap-4 mb-4">
             <div class="flex items-center">
               <span class="text-gray-600 mr-2">By:</span>
               <span class="font-medium text-gray-900">{mod.data.creator}</span>
             </div>
-            {mod.data.type.length > 0 && (
-              <div class="flex items-center gap-2">
-                <span class="text-gray-600">Type:</span>
-                {mod.data.type.map(type => (
-                  <span class="px-3 py-1 bg-amber-100 text-amber-800 text-sm rounded-full font-medium">
-                    {type.replace('-', ' ')}
-                  </span>
-                ))}
-              </div>
-            )}
+            {
+              mod.data.type.length > 0 && (
+                <div class="flex items-center gap-2">
+                  <span class="text-gray-600">Type:</span>
+                  {mod.data.type.map((type) => (
+                    <span class="px-3 py-1 bg-amber-100 text-amber-800 text-sm rounded-full font-medium">
+                      {type.replace("-", " ")}
+                    </span>
+                  ))}
+                </div>
+              )
+            }
           </div>
-          {mod.data.url && (
-            <div class="flex items-center">
-              <span class="text-gray-600 mr-2">Source:</span>
-              <a 
-                href={mod.data.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="text-blue-600 hover:text-blue-700 underline break-all"
-              >
-                {mod.data.url}
-              </a>
-            </div>
-          )}
+          {
+            mod.data.url && (
+              <div class="flex items-center">
+                <span class="text-gray-600 mr-2">Source:</span>
+                <a
+                  href={mod.data.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-blue-600 hover:text-blue-700 underline break-all"
+                >
+                  {mod.data.url}
+                </a>
+              </div>
+            )
+          }
         </div>
       </div>
 
       <!-- Content -->
       <div class="bg-white rounded-lg shadow-lg p-8">
         <h2 class="text-2xl font-bold text-gray-900 mb-6">Description</h2>
-        {mod.data.content ? (
-          <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed" set:html={renderMarkdown(mod.data.content)} />
-        ) : (
-          <p class="text-gray-600 italic">
-            No detailed description available. Check the source link above for more information.
-          </p>
-        )}
+        {
+          mod.data.content ? (
+            <div
+              class="prose prose-lg max-w-none text-gray-700 leading-relaxed"
+              set:html={renderMarkdown(mod.data.content)}
+            />
+          ) : (
+            <p class="text-gray-600 italic">
+              No detailed description available. Check the source link above for
+              more information.
+            </p>
+          )
+        }
       </div>
 
       <!-- Action Buttons -->
       <div class="mt-8 flex flex-wrap gap-4">
-        {mod.data.url && (
-          <a 
-            href={mod.data.url} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="inline-flex items-center px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg shadow-lg transition-colors duration-200"
-          >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-            </svg>
-            View Original Source
-          </a>
-        )}
-        <a 
+        {
+          mod.data.url && (
+            <a
+              href={mod.data.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg shadow-lg transition-colors duration-200"
+            >
+              <svg
+                class="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+              View Original Source
+            </a>
+          )
+        }
+        <a
           href="/"
           class="inline-flex items-center px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg shadow-lg transition-colors duration-200"
         >
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          <svg
+            class="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
           </svg>
           Back to All Mods
         </a>
       </div>
     </main>
 
-    <!-- Image Modal -->
-    <div id="imageModal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
-      <div class="relative max-w-4xl max-h-full">
-        <img id="modalImage" src="" alt="" class="max-w-full max-h-full rounded-lg shadow-2xl" />
-        <button 
-          onclick="closeImageModal()" 
-          class="absolute top-4 right-4 text-white bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full w-10 h-10 flex items-center justify-center transition-colors"
-          aria-label="Close image"
-        >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
+    <ImageModal />
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-16">
-      <div class="max-w-6xl mx-auto px-6 py-8">
-        <div class="text-center text-gray-600">
-          <p class="mb-2">Linea Micra Mods - Community-driven modifications for La Marzocco espresso machines</p>
-          <p class="text-sm">All modifications are created by their respective creators. Please follow proper safety guidelines when modifying your equipment.</p>
-        </div>
-      </div>
-    </footer>
+    <Footer />
 
-    <script>
-      // Image modal functionality
-      function openImageModal(img) {
-        const modal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        modalImage.src = img.src;
-        modalImage.alt = img.alt;
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeImageModal() {
-        const modal = document.getElementById('imageModal');
-        modal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-      }
-
-      // Close modal on ESC key
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          closeImageModal();
-        }
-      });
-
-      // Close modal on background click
-      document.getElementById('imageModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-          closeImageModal();
-        }
-      });
-    </script>
   </body>
 </html>

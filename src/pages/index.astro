@@ -1,16 +1,20 @@
 ---
-import { getCollection } from 'astro:content';
-import '../styles/global.css';
+import { getCollection } from "astro:content";
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
 
-const mods = await getCollection('mods');
+const mods = await getCollection("mods");
 
 // Group mods by type for quick stats
-const typeStats = mods.reduce((acc, mod) => {
-  mod.data.type.forEach(type => {
-    acc[type] = (acc[type] || 0) + 1;
-  });
-  return acc;
-}, {} as Record<string, number>);
+const typeStats = mods.reduce(
+	(acc, mod) => {
+		mod.data.type.forEach((type) => {
+			acc[type] = (acc[type] || 0) + 1;
+		});
+		return acc;
+	},
+	{} as Record<string, number>,
+);
 ---
 
 <html lang="en">
@@ -19,30 +23,36 @@ const typeStats = mods.reduce((acc, mod) => {
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Linea Micra Mods - Enhance Your La Marzocco Espresso Experience</title>
-		<meta name="description" content="Discover modifications for your La Marzocco Linea Micra espresso machine. Shot timers, brew-by-weight systems, flow control, and more." />
+		<title>
+			Linea Micra Mods - Enhance Your La Marzocco Espresso Experience
+		</title>
+		<meta
+			name="description"
+			content="Discover modifications for your La Marzocco Linea Micra espresso machine. Shot timers, brew-by-weight systems, flow control, and more."
+		/>
 	</head>
 	<body class="min-h-screen bg-gray-50">
 		<!-- Hero Section -->
 		<section class="bg-gradient-to-br from-amber-50 to-orange-100 py-20">
 			<div class="max-w-6xl mx-auto px-6 text-center">
-				<h1 class="text-5xl font-bold text-gray-900 mb-6">
-					Linea Micra Mods
-				</h1>
+				<h1 class="text-5xl font-bold text-gray-900 mb-6">Linea Micra Mods</h1>
 				<p class="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
-					Discover modifications to enhance your La Marzocco Linea Micra espresso machine. 
-					From precision shot timers to advanced brew-by-weight systems, explore the community's 
-					best innovations for the perfect espresso experience.
+					Discover modifications to enhance your La Marzocco Linea Micra
+					espresso machine. From precision shot timers to advanced
+					brew-by-weight systems, explore the community's best innovations for
+					the perfect espresso experience.
 				</p>
 				<div class="flex flex-wrap justify-center gap-4 mb-12">
-					{Object.entries(typeStats).map(([type, count]) => (
-						<span class="px-4 py-2 bg-white rounded-full shadow-sm border border-gray-200 text-sm font-medium text-gray-700">
-							{count} {type.replace('-', ' ')} mod{count !== 1 ? 's' : ''}
-						</span>
-					))}
+					{
+						Object.entries(typeStats).map(([type, count]) => (
+							<span class="px-4 py-2 bg-white rounded-full shadow-sm border border-gray-200 text-sm font-medium text-gray-700">
+								{count} {type.replace("-", " ")} mod{count !== 1 ? "s" : ""}
+							</span>
+						))
+					}
 				</div>
-				<a 
-					href="#mods-table" 
+				<a
+					href="#mods-table"
 					class="inline-block bg-amber-600 hover:bg-amber-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg transition-colors duration-200"
 				>
 					Explore {mods.length} Mods
@@ -53,34 +63,44 @@ const typeStats = mods.reduce((acc, mod) => {
 		<!-- About Section -->
 		<section class="py-16 bg-white">
 			<div class="max-w-4xl mx-auto px-6">
-				<h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">About Linea Micra Modifications</h2>
+				<h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
+					About Linea Micra Modifications
+				</h2>
 				<div class="grid md:grid-cols-2 gap-8">
 					<div>
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">Shot Timers</h3>
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">
+							Shot Timers
+						</h3>
 						<p class="text-gray-700 mb-4">
-							Precision timing systems that help you pull consistent shots by automatically 
-							timing your espresso extraction process.
+							Precision timing systems that help you pull consistent shots by
+							automatically timing your espresso extraction process.
 						</p>
 					</div>
 					<div>
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">Brew-by-Weight</h3>
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">
+							Brew-by-Weight
+						</h3>
 						<p class="text-gray-700 mb-4">
-							Advanced systems that integrate scales to automatically stop shots based on 
-							target weight, ensuring consistent extraction ratios.
+							Advanced systems that integrate scales to automatically stop shots
+							based on target weight, ensuring consistent extraction ratios.
 						</p>
 					</div>
 					<div>
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">Flow Control</h3>
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">
+							Flow Control
+						</h3>
 						<p class="text-gray-700 mb-4">
-							Modifications that allow manual control over water flow rate, enabling 
-							advanced brewing techniques like pre-infusion.
+							Modifications that allow manual control over water flow rate,
+							enabling advanced brewing techniques like pre-infusion.
 						</p>
 					</div>
 					<div>
-						<h3 class="text-xl font-semibold text-gray-900 mb-4">Scale Drip Trays</h3>
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">
+							Scale Drip Trays
+						</h3>
 						<p class="text-gray-700 mb-4">
-							Custom drip trays designed to accommodate precision scales for accurate 
-							dose measurement and shot timing.
+							Custom drip trays designed to accommodate precision scales for
+							accurate dose measurement and shot timing.
 						</p>
 					</div>
 				</div>
@@ -90,19 +110,29 @@ const typeStats = mods.reduce((acc, mod) => {
 		<!-- Mods Table Section -->
 		<section id="mods-table" class="py-16 bg-gray-50">
 			<div class="max-w-7xl mx-auto px-6">
-				<h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Available Modifications</h2>
-				
+				<h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">
+					Available Modifications
+				</h2>
+
 				<!-- Filters -->
 				<div class="mb-8">
 					<div class="flex flex-wrap gap-2 justify-center">
-						<button class="filter-btn active px-4 py-2 bg-amber-600 text-white rounded-lg" data-filter="all">
+						<button
+							class="filter-btn active px-4 py-2 bg-amber-600 text-white rounded-lg"
+							data-filter="all"
+						>
 							All Mods
 						</button>
-						{Object.keys(typeStats).map(type => (
-							<button class="filter-btn px-4 py-2 bg-white text-gray-700 rounded-lg border border-gray-200 hover:bg-gray-50" data-filter={type}>
-								{type.replace('-', ' ')}
-							</button>
-						))}
+						{
+							Object.keys(typeStats).map((type) => (
+								<button
+									class="filter-btn px-4 py-2 bg-white text-gray-700 rounded-lg border border-gray-200 hover:bg-gray-50"
+									data-filter={type}
+								>
+									{type.replace("-", " ")}
+								</button>
+							))
+						}
 					</div>
 				</div>
 
@@ -112,44 +142,66 @@ const typeStats = mods.reduce((acc, mod) => {
 						<table class="w-full">
 							<thead class="bg-gray-50">
 								<tr>
-									<th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Modification</th>
-									<th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Creator</th>
-									<th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Type</th>
-									<th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Links</th>
+									<th
+										class="px-6 py-4 text-left text-sm font-semibold text-gray-900"
+										>Modification</th
+									>
+									<th
+										class="px-6 py-4 text-left text-sm font-semibold text-gray-900"
+										>Creator</th
+									>
+									<th
+										class="px-6 py-4 text-left text-sm font-semibold text-gray-900"
+										>Type</th
+									>
+									<th
+										class="px-6 py-4 text-left text-sm font-semibold text-gray-900"
+										>Links</th
+									>
 								</tr>
 							</thead>
 							<tbody class="divide-y divide-gray-200" id="mods-tbody">
-								{mods.map((mod) => (
-									<tr class="mod-row hover:bg-gray-50 transition-colors" data-types={mod.data.type.join(',')}>
-										<td class="px-6 py-4">
-											<a href={`/mods/${mod.data.slug}`} class="font-medium text-amber-600 hover:text-amber-700">
-												{mod.data.title}
-											</a>
-										</td>
-										<td class="px-6 py-4 text-gray-900">{mod.data.creator}</td>
-										<td class="px-6 py-4">
-											<div class="flex flex-wrap gap-1">
-												{mod.data.type.map(type => (
-													<span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
-														{type.replace('-', ' ')}
-													</span>
-												))}
-											</div>
-										</td>
-										<td class="px-6 py-4">
-											{mod.data.url && (
-												<a 
-													href={mod.data.url} 
-													target="_blank" 
-													rel="noopener noreferrer"
-													class="text-blue-600 hover:text-blue-700 text-sm"
+								{
+									mods.map((mod) => (
+										<tr
+											class="mod-row hover:bg-gray-50 transition-colors"
+											data-types={mod.data.type.join(",")}
+										>
+											<td class="px-6 py-4">
+												<a
+													href={`/mods/${mod.data.slug}`}
+													class="font-medium text-amber-600 hover:text-amber-700"
 												>
-													View Details →
+													{mod.data.title}
 												</a>
-											)}
-										</td>
-									</tr>
-								))}
+											</td>
+											<td class="px-6 py-4 text-gray-900">
+												{mod.data.creator}
+											</td>
+											<td class="px-6 py-4">
+												<div class="flex flex-wrap gap-1">
+													{mod.data.type.map((type) => (
+														<span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+															{type.replace("-", " ")}
+														</span>
+													))}
+												</div>
+											</td>
+											<td class="px-6 py-4">
+												{mod.data.url && (
+													<a
+														href={mod.data.url}
+														target="_blank"
+														rel="noopener noreferrer"
+														class="text-blue-600 hover:text-blue-700 text-sm"
+													>
+														View Details →
+													</a>
+												)}
+											</td>
+										</tr>
+									))
+								}
 							</tbody>
 						</table>
 					</div>
@@ -157,31 +209,37 @@ const typeStats = mods.reduce((acc, mod) => {
 			</div>
 		</section>
 
+		<Footer />
+
 		<script>
 			// Filter functionality
-			const filterButtons = document.querySelectorAll('.filter-btn');
-			const modRows = document.querySelectorAll('.mod-row');
+			const filterButtons = document.querySelectorAll(".filter-btn");
+			const modRows = document.querySelectorAll(".mod-row");
 
-			filterButtons.forEach(button => {
-				button.addEventListener('click', () => {
-					const filter = button.getAttribute('data-filter');
-					
+			filterButtons.forEach((button) => {
+				button.addEventListener("click", () => {
+					const filter = button.getAttribute("data-filter");
+
 					// Update active button
-					filterButtons.forEach(btn => btn.classList.remove('active', 'bg-amber-600', 'text-white'));
-					filterButtons.forEach(btn => btn.classList.add('bg-white', 'text-gray-700'));
-					button.classList.add('active', 'bg-amber-600', 'text-white');
-					button.classList.remove('bg-white', 'text-gray-700');
+					filterButtons.forEach((btn) =>
+						btn.classList.remove("active", "bg-amber-600", "text-white"),
+					);
+					filterButtons.forEach((btn) =>
+						btn.classList.add("bg-white", "text-gray-700"),
+					);
+					button.classList.add("active", "bg-amber-600", "text-white");
+					button.classList.remove("bg-white", "text-gray-700");
 
 					// Filter rows
-					modRows.forEach(row => {
-						if (filter === 'all') {
-							row.style.display = '';
+					modRows.forEach((row) => {
+						if (filter === "all") {
+							row.style.display = "";
 						} else {
-							const types = row.getAttribute('data-types');
+							const types = row.getAttribute("data-types");
 							if (types && types.includes(filter)) {
-								row.style.display = '';
+								row.style.display = "";
 							} else {
-								row.style.display = 'none';
+								row.style.display = "none";
 							}
 						}
 					});
