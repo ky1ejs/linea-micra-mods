@@ -1,0 +1,11 @@
+{
+  "slug": "hass-lm-brew-by-weight",
+  "title": "HASS + LM Brew-by-weight",
+  "creator": "[[Adam Petrovic]]",
+  "type": [
+    "brew-by-weight"
+  ],
+  "url": "https://gist.github.com/adampetrovic/448b276d591ee1c1a2ebd9e52119c9f8",
+  "content": "Discovered via Linea Micra Brew by Weight (GitHub) on Reddit.",
+  "filename": "HASS + LM Brew-by-weight.md"
+}

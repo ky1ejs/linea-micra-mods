@@ -1,0 +1,11 @@
+{
+  "slug": "shotstopper",
+  "title": "shotStopper",
+  "creator": "[[Tate Mazer]]",
+  "type": [
+    "brew-by-weight"
+  ],
+  "url": "https://tatemazer.com/store/p/shotstopper-v2",
+  "content": "ShotStopper was created by Tate Mazer retrofit brew-by-weight functionality to handful of popular home espresso machines.\nI think the source for shotStopper [here](https://github.com/tatemazer/AcaiaArduinoBLE/blob/main/examples/shotStopper/shotStopper.ino), but it's part of a repo that is named for just connecting to Acaia scales. \n[This comment](https://www.reddit.com/r/LaMarzocco/comments/1kxkze2/comment/mut9umg/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button) on the Full Micra Brew-by-Weight Mod claims that he used to the shotStopper source to make it.\n# Links\n* [Someone sharing how great it is on r/LaMarzocco](https://www.reddit.com/r/LaMarzocco/s/UssiRC1Brj)\n*  [1](https://www.reddit.com/r/LaMarzocco/comments/1kg9rud/comment/mqxjtaq/?context=3&share_id=Ov_YoqRUHRYYGb7t266e-&utm_content=1&utm_medium=ios_app&utm_name=ioscss&utm_source=share&utm_term=1),\n* [2](https://www.reddit.com/r/LaMarzocco/comments/1kxkze2/tate_mazer_shotstopper/)\n* [shotStopper Manual - Google Docs](https://docs.google.com/document/d/1Yfy20_4L1lGRLHhRPl7-UcaEZYMX4bPpcJRztDicuvU/edit?tab=t.5jei3fsmzqf)",
+  "filename": "shotStopper.md"
+}
