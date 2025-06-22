@@ -12,13 +12,17 @@ export async function getStaticPaths() {
 
 const { mod } = Astro.props;
 
-// Function to render markdown content as HTML (basic implementation)
+// Function to render markdown content as HTML (enhanced implementation)
 function renderMarkdown(content: string) {
   return content
+    // Process images FIRST (before links to avoid conflicts)
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<div class="image-container my-6"><img src="$2" alt="$1" class="w-full h-auto rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer" onclick="openImageModal(this)" loading="lazy" /></div>')
+    // Then process other formatting
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700 underline">$1</a>')
-    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="max-w-full h-auto rounded-lg shadow-md my-4" />')
+    .replace(/# ([^\n]+)/g, '<h1 class="text-2xl font-bold text-gray-900 mt-8 mb-4">$1</h1>')
+    .replace(/## ([^\n]+)/g, '<h2 class="text-xl font-semibold text-gray-900 mt-6 mb-3">$1</h2>')
     .replace(/\n\n/g, '</p><p class="mb-4">')
     .replace(/^/, '<p class="mb-4">')
     .replace(/$/, '</p>');
@@ -126,6 +130,22 @@ function renderMarkdown(content: string) {
       </div>
     </main>
 
+    <!-- Image Modal -->
+    <div id="imageModal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
+      <div class="relative max-w-4xl max-h-full">
+        <img id="modalImage" src="" alt="" class="max-w-full max-h-full rounded-lg shadow-2xl" />
+        <button 
+          onclick="closeImageModal()" 
+          class="absolute top-4 right-4 text-white bg-black bg-opacity-50 hover:bg-opacity-75 rounded-full w-10 h-10 flex items-center justify-center transition-colors"
+          aria-label="Close image"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-white border-t border-gray-200 mt-16">
       <div class="max-w-6xl mx-auto px-6 py-8">
@@ -135,5 +155,37 @@ function renderMarkdown(content: string) {
         </div>
       </div>
     </footer>
+
+    <script>
+      // Image modal functionality
+      function openImageModal(img) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        modalImage.src = img.src;
+        modalImage.alt = img.alt;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeImageModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+
+      // Close modal on ESC key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeImageModal();
+        }
+      });
+
+      // Close modal on background click
+      document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeImageModal();
+        }
+      });
+    </script>
   </body>
 </html>

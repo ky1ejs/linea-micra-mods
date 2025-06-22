@@ -37,7 +37,11 @@ url: "https://example.com/mod-link"
 ```bash
 node scripts/parse-mods.js
 ```
-Run this after adding/updating markdown files in the Obsidian vault.
+Run this after adding/updating markdown files in the Obsidian vault. This will:
+- Parse markdown files and extract frontmatter
+- Process Obsidian wikilinks and image references
+- Copy and optimize images from attachments folder
+- Generate JSON files for Astro content collections
 
 ### Development
 ```bash
@@ -60,16 +64,27 @@ pnpm build    # Build for production
 - Responsive Tailwind design with amber/orange color scheme
 - Static site generation for optimal performance
 
+## Image Processing
+
+- **Source**: Images referenced via `![[filename.ext]]` in Obsidian markdown
+- **Location**: Images stored in `/Users/kylejs/Documents/Obsidian/kylejs/Extras/Attachments`
+- **Optimization**: Automatically converted to WebP format, resized to max 800px
+- **Output**: Optimized images saved to `public/images/mods/` with web-safe filenames
+- **Display**: Images shown with modal popup, hover effects, and responsive design
+- **Format**: `{mod-slug}-{safe-filename}.webp` (e.g., `ace-dotshot-screenshot-2025-06-22.webp`)
+
 ## Common Tasks
 
 1. **Adding new mods**: Add markdown file to Obsidian vault, then run parsing script
 2. **Updating existing mods**: Edit markdown in Obsidian, then run parsing script
-3. **Styling changes**: Edit Tailwind classes in `.astro` files and `src/styles/global.css`
-4. **Content schema changes**: Update `src/content/config.ts` and parsing script
+3. **Adding images**: Place images in Obsidian attachments folder, reference with `![[filename.ext]]`
+4. **Styling changes**: Edit Tailwind classes in `.astro` files and `src/styles/global.css`
+5. **Content schema changes**: Update `src/content/config.ts` and parsing script
 
 ## Deployment Considerations
 
 - Site builds to static HTML (18 pages total)
-- All mod images currently show as placeholder text
+- 15 optimized images included in build
 - External links open in new tabs with proper rel attributes
 - SEO optimized with proper meta tags and semantic HTML
+- Images have lazy loading and modal interactions

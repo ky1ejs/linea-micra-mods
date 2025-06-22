@@ -12,6 +12,7 @@
     "@tailwindcss/vite": "^4.1.10",
     "astro": "^5.10.0",
     "gray-matter": "^4.0.3",
+    "sharp": "^0.34.2",
     "tailwindcss": "^4.1.10"
   }
 }
