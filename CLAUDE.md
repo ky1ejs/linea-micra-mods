@@ -63,6 +63,7 @@ pnpm build    # Build for production
 - JavaScript filtering without external frameworks
 - Responsive Tailwind design with amber/orange color scheme
 - Static site generation for optimal performance
+- Vercel Analytics integration for usage tracking and performance monitoring
 
 ## Image Processing
 
