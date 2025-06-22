@@ -81,10 +81,24 @@ pnpm build    # Build for production
 4. **Styling changes**: Edit Tailwind classes in `.astro` files and `src/styles/global.css`
 5. **Content schema changes**: Update `src/content/config.ts` and parsing script
 
+## Git LFS Configuration
+
+This repository uses Git LFS to efficiently manage binary assets:
+
+- **Images**: webp, jpg, jpeg, png, gif, bmp, tiff, svg
+- **Videos**: mp4, mov, avi, webm  
+- **Audio**: mp3, wav, flac
+- **Documents**: pdf
+- **Archives**: zip, tar.gz
+- **3D Models**: stl, obj, 3mf
+
+All 16 image files (15 mod images + favicon) are stored in LFS for optimal repository performance.
+
 ## Deployment Considerations
 
 - Site builds to static HTML (18 pages total)
-- 15 optimized images included in build
+- 15 optimized images included in build via Git LFS
 - External links open in new tabs with proper rel attributes
 - SEO optimized with proper meta tags and semantic HTML
 - Images have lazy loading and modal interactions
+- Git LFS required for cloning/deploying to access images
