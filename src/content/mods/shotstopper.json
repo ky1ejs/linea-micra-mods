@@ -1,7 +1,8 @@
 {
   "slug": "shotstopper",
   "title": "shotStopper",
-  "creator": "[[Tate Mazer]]",
+  "creator": "Tate Mazer",
+  "creatorUrl": "https://tatemazer.com/",
   "type": [
     "brew-by-weight"
   ],

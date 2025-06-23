@@ -1,7 +1,8 @@
 {
   "slug": "hass-lm-brew-by-weight",
   "title": "HASS + LM Brew-by-weight",
-  "creator": "[[Adam Petrovic]]",
+  "creator": "Adam Petrovic",
+  "creatorUrl": "https://www.linkedin.com/in/adampetrovic/?originalSubdomain=au",
   "type": [
     "brew-by-weight"
   ],

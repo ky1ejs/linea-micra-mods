@@ -72,7 +72,18 @@ function renderMarkdown(content: string) {
           <div class="flex flex-wrap items-center gap-4 mb-4">
             <div class="flex items-center">
               <span class="text-gray-600 mr-2">By:</span>
-              <span class="font-medium text-gray-900">{mod.data.creator}</span>
+              {mod.data.creatorUrl ? (
+                <a
+                  href={mod.data.creatorUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-medium text-blue-600 hover:text-blue-700 underline"
+                >
+                  {mod.data.creator}
+                </a>
+              ) : (
+                <span class="font-medium text-gray-900">{mod.data.creator}</span>
+              )}
             </div>
             {
               mod.data.type.length > 0 && (

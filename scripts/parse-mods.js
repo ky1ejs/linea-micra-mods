@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import sharp from 'sharp';
 
 const OBSIDIAN_MODS_DIR = '/Users/kylejs/Documents/Obsidian/kylejs/1. Atlas/Coffee/Linea Micra Mods';
+const OBSIDIAN_PEOPLE_DIR = '/Users/kylejs/Documents/Obsidian/kylejs/1. Atlas/People';
 const OBSIDIAN_ATTACHMENTS_DIR = '/Users/kylejs/Documents/Obsidian/kylejs/Extras/Attachments';
 const OUTPUT_DIR = './src/content/mods';
 const IMAGES_OUTPUT_DIR = './public/images/mods';
@@ -25,7 +26,56 @@ function createSlug(filename) {
     .replace(/^-|-$/g, '');
 }
 
-// Function to process Obsidian wikilinks
+// Function to process creator wikilinks and extract URLs
+function processCreator(creatorText) {
+  // Check if creator contains wikilink syntax
+  const wikilinkMatch = creatorText.match(/\[\[([^\]]+)\]\]/);
+  
+  if (wikilinkMatch) {
+    const creatorName = wikilinkMatch[1];
+    const creatorFile = path.join(OBSIDIAN_PEOPLE_DIR, `${creatorName}.md`);
+    
+    if (fs.existsSync(creatorFile)) {
+      try {
+        const creatorContent = fs.readFileSync(creatorFile, 'utf8');
+        const { data: creatorData } = matter(creatorContent);
+        
+        // Extract website URL - handle both 'website' (singular) and 'websites' (array)
+        let url = null;
+        if (creatorData.website) {
+          url = creatorData.website;
+        } else if (creatorData.websites && creatorData.websites.length > 0) {
+          url = creatorData.websites[0];
+        }
+        
+        return {
+          name: creatorName,
+          url: url
+        };
+      } catch (error) {
+        console.log(`  ⚠️  Error reading creator file for ${creatorName}:`, error.message);
+        return {
+          name: creatorName,
+          url: null
+        };
+      }
+    } else {
+      console.log(`  ⚠️  Creator file not found: ${creatorFile}`);
+      return {
+        name: creatorName,
+        url: null
+      };
+    }
+  }
+  
+  // Return as-is for non-wikilink creators
+  return {
+    name: creatorText,
+    url: null
+  };
+}
+
+// Function to process Obsidian wikilinks in content
 function processWikilinks(content) {
   // Convert [[link]] to just link text for now
   // In a full implementation, you might want to resolve these to actual links
@@ -135,11 +185,15 @@ async function processAllMods() {
     let processedContent = await processImages(markdownContent, slug);
     processedContent = processWikilinks(processedContent);
     
+    // Process creator information
+    const creatorInfo = processCreator(frontmatter.creator || 'Unknown');
+    
     // Create mod object
     const mod = {
       slug,
       title: filename.replace(/\.md$/, ''),
-      creator: frontmatter.creator || 'Unknown',
+      creator: creatorInfo.name,
+      creatorUrl: creatorInfo.url,
       type: Array.isArray(frontmatter.type) ? frontmatter.type : [frontmatter.type].filter(Boolean),
       url: frontmatter.url || '',
       content: processedContent.trim(),

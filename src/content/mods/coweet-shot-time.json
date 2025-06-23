@@ -2,6 +2,7 @@
   "slug": "coweet-shot-time",
   "title": "Coweet Shot Time",
   "creator": "Coweet",
+  "creatorUrl": null,
   "type": [
     "shot-timer"
   ],

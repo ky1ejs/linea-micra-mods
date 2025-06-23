@@ -1,7 +1,8 @@
 {
   "slug": "centered-lunar-drip-tray",
   "title": "Centered Lunar Drip Tray",
-  "creator": "[[Marcus Sorensen]]",
+  "creator": "Marcus Sorensen",
+  "creatorUrl": "https://github.com/mlsorensen",
   "type": [
     "scale-drip-tray"
   ],

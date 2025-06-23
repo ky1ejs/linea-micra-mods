@@ -1,7 +1,8 @@
 {
   "slug": "lamarzocco-display",
   "title": "LaMarzocco Display",
-  "creator": "[[Stefano Giliani]]",
+  "creator": "Stefano Giliani",
+  "creatorUrl": "https://github.com/StefanoGaliani",
   "type": [
     "shot-timer"
   ],

@@ -1,7 +1,8 @@
 {
   "slug": "micra-pro-mod",
   "title": "micra-pro mod",
-  "creator": "[[Janis M. Baumann]]",
+  "creator": "Janis M. Baumann",
+  "creatorUrl": "https://github.com/ebaumj",
   "type": [
     "brew-by-weight"
   ],

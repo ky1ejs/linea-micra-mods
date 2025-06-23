@@ -1,7 +1,8 @@
 {
   "slug": "full-micra-brew-by-weight-mod",
   "title": "Full Micra Brew-by-Weight Mod",
-  "creator": "[[huertamatt]]",
+  "creator": "huertamatt",
+  "creatorUrl": "https://www.reddit.com/user/huertamatt/",
   "type": [
     "shot-timer",
     "brew-by-weight"

@@ -2,6 +2,7 @@
   "slug": "ace-dotshot",
   "title": "ACE DotShot",
   "creator": "Alcorn Cafe Engineering",
+  "creatorUrl": null,
   "type": [
     "shot-timer"
   ],
