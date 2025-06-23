@@ -1,0 +1,84 @@
+name: Dependabot Auto-Merge
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+
+jobs:
+  auto-approve-and-merge:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests and build
+        run: |
+          pnpm build
+
+      - name: Check if minor or patch update
+        id: check-update-type
+        run: |
+          # Get PR title and check if it contains major version update
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          if echo "$PR_TITLE" | grep -qE "(major|breaking|v[0-9]+\.0\.0)"; then
+            echo "is_major=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_major=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Auto-approve non-major updates
+        if: steps.check-update-type.outputs.is_major == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              event: 'APPROVE',
+              body: '✅ Auto-approved non-major dependency update'
+            });
+
+      - name: Enable auto-merge for non-major updates
+        if: steps.check-update-type.outputs.is_major == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              commit_title: 'Auto-merge: ${{ github.event.pull_request.title }}',
+              merge_method: 'squash'
+            });
+
+      - name: Comment on major updates
+        if: steps.check-update-type.outputs.is_major == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '⚠️ This is a major version update that requires manual review before merging.'
+            });
