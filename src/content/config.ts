@@ -6,7 +6,7 @@ const modsCollection = defineCollection({
     slug: z.string(),
     title: z.string(),
     creator: z.string(),
-    creatorUrl: z.string().optional(),
+    creatorUrl: z.string().nullable().optional(),
     type: z.array(z.string()),
     url: z.string().optional(),
     content: z.string(),
