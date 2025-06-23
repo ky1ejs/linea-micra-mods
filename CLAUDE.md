@@ -49,6 +49,20 @@ pnpm dev      # Start development server
 pnpm build    # Build for production
 ```
 
+### Git Workflow
+**IMPORTANT**: Always ask the user before committing changes.
+
+```bash
+git add .
+git commit -m "Brief description of changes"
+```
+
+Never commit automatically - always:
+- Show the user what changes have been made
+- Ask for permission before committing
+- Let the user review and approve the commit message
+- Allow the user to decide when changes should be committed
+
 ## Mod Categories
 
 1. **Shot Timers** (9 mods) - Precision timing systems for consistent espresso extraction
