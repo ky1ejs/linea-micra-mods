@@ -2,6 +2,16 @@
 
 A static website showcasing modifications for the La Marzocco Linea Micra espresso machine. Built with Astro and Tailwind CSS.
 
+## Origin
+I've been collecting modifications for my Linea Micra espresso machine in my [Obsidian](https://obsidian.md/) vault to use as inspiration for some mods of my own. I've been wanting to lean into using Claude Code more, so this presented the perfect opporunity to use Claude Code to build a site that I can use to share this info with the community.
+
+I didn't write a single line of code for this project. The opening prompt was:
+> '/Users/kylejs/Documents/Obsidian/kylejs/1. Atlas/Coffee/Linea Micra Mods' is a directory of markdown files that I've created with Obsidian. Each file is a modification that you can make to the La Marzocco Linea Micra espresso machine. Each file has front matter that provides the types of the mod, the url to the mod and the creator of the mod. The mod creator will sometimes uses Obsidian wikilinks to reference a markdown file about the creator. In the body of the markdown files is sometimes a description of the mod and some images.
+> I would like you to make a static web site using Tailwind and Astro to show case these mods. The home page should introduce what the site is for and then list the possible mods with a table that allows users to sort and filter the mods and then click into them to see their descriptions. 
+> You should make a directory and repo for this site at '/Users/kylejs/Developer/kylejs/linea-micra-mods'. 
+> The site will be called Linea Micra Mods.
+> Please keep the design clean and fast with inviting and rich interactions.
+
 ## Features
 
 - **Interactive Mod Browser**: Filterable table showing all available modifications
