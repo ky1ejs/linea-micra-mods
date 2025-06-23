@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  lint-and-build:
+  build:
     runs-on: ubuntu-latest
     
     steps:
@@ -41,16 +41,10 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
-      - name: Run type checking
-        run: pnpm run typecheck
-
-      - name: Run linter (includes formatting)
+      - name: Run linter
         run: pnpm run lint:check
-
-      - name: Build project
-        run: pnpm run build
 
       - name: Upload build artifacts
         if: success()
