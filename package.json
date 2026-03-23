@@ -12,9 +12,9 @@
     "typecheck": "astro check"
   },
   "dependencies": {
-    "@astrojs/vercel": "^9.0.5",
+    "@astrojs/vercel": "^10.0.2",
     "@tailwindcss/vite": "^4.2.2",
-    "astro": "^5.18.1",
+    "astro": "^6.0.8",
     "gray-matter": "^4.0.3",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.2.2"
