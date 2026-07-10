@@ -1,0 +1,13 @@
+{
+  "slug": "linea-mini-controller",
+  "title": "Linea Mini Touchscreen Controller",
+  "creator": "Sc00bs110",
+  "creatorUrl": "https://github.com/Sc00bs110",
+  "type": [
+    "shot-timer",
+    "brew-by-weight"
+  ],
+  "url": "https://github.com/Sc00bs110/linea-mini-controller",
+  "content": "![ESP32 touchscreen controller installed on a Linea Mini](/images/mods/linea-mini-controller-installed.jpg)\n\nAn open-source ESP32-S3 touchscreen controller, built for the **Linea Mini** (the Micra's bigger sibling — both machines use a GICAR control board, so the approach may carry over). It plugs into the machine's CN11 diagnostic connector and speaks the same serial protocol as the factory panel — no modification to the machine's electronics.\n\nFeatures: live boiler temperature and shot timer, brew-by-weight via BLE scale (Felicita Arc / Bookoo Themis), flush-vs-shot detection, cleaning-cycle reminders, standby scheduling, Home Assistant integration over MQTT, and self-updating firmware from GitHub releases. Firmware, wiring guide, and 3D-printable housing are all in the repo.",
+  "filename": "Linea Mini Touchscreen Controller.md"
+}
